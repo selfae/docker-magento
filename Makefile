@@ -1,8 +1,11 @@
 
 DOCKER = docker
+DOCKER_BUILD = $(DOCKER) build
 
 DOCKER_COMPOSE_FILE = docker-compose.yml
 DOCKER_COMPOSE = docker-compose -f $(DOCKER_COMPOSE_FILE)
+
+DOCKER_IMAGE = selfae/magento
 
 default: help
 
@@ -24,6 +27,16 @@ up:
 ## down and up dockers
 reset: down up
 
+login:
+	$(DOCKER) login
+
+build: login build_php_cli
+
+build_php_cli:
+	$(DOCKER_BUILD) \
+        -t $(DOCKER_IMAGE):cli-latest\
+        ./php-cli
+	$(DOCKER) push $(DOCKER_IMAGE):cli-latest
 
 # COLORS
 GREEN  := $(shell tput -Txterm setaf 2)

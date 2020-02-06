@@ -40,7 +40,8 @@ RUN docker-php-ext-install \
   zip \
   soap \
   bcmath \
-  pcntl
+  pcntl \
+  opcache
 
 RUN pecl install -o -f xdebug
 
